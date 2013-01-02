@@ -1,0 +1,29 @@
+#!/bin/bash
+#
+# Copyright (C) 2012 Jannis Pohlmann <jannis.pohlmann@codethink.co.uk>
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+
+
+set -eu
+
+
+# the test directory should be empty at the beginning of each test
+find "$DATADIR" -mindepth 1 -delete
+
+
+# create an empty repository for commits and a key/value store
+repo = "$DATADIR/repo"
+mkdir "$repo"
+cd "$repo"
+git init --quiet
+
+
+# generate a series of commits
+for i in 1 2 3 4 5 6 7 8 9 10; do
+  echo "Commit $i" >> foo.txt
+  git add foo.txt
+  git commit --quiet -m "Commit $i"
+done
